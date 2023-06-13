@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Contact Table</title>
+    
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+        }
+
+        .popup input,
+        .popup textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-radius: 2%;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .status-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .status-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Contact Table</h2>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Company Details</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="data-table-body">
+        </tbody>
+    </table>
+
+    <!-- <button class="status-button">View</button> -->
+
+
+    <script>
+         
+
+        
+        var serialNumber = 1;
+
+        function addRow(name, company, address, phone, status) {
+            var newRow = document.createElement("tr");
+            var serialCell = document.createElement("td");
+            var nameCell = document.createElement("td");
+            var companyCell = document.createElement("td");
+            var addressCell = document.createElement("td");
+            var phoneCell = document.createElement("td");
+            var statusCell = document.createElement("td");
+            var button = document.createElement("button");
+
+            serialCell.innerHTML = serialNumber;
+            nameCell.innerHTML = name;
+            companyCell.innerHTML = company;
+            addressCell.innerHTML = address;
+            phoneCell.innerHTML = phone;
+
+            button.innerHTML = "View";
+            button.className = "status-button";
+            
+            statusCell.appendChild(button);
+            button.onclick =  function showFormPopup(addRow) {
+                // Create a pop-up container
+                // console.log(addRow,name);
+                var popupContainer = document.createElement("div");
+                popupContainer.className = "popup";
+
+                // Create an input form
+                var form = document.createElement("form");
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevent form submission
+
+                    // Collect form data
+                    var name = document.getElementById("name").value;
+                    var email = document.getElementById("email").value;
+                    var message = document.getElementById("message").value;
+
+                    // Display form data in an alert box
+                    var formData = "Name: " + name + "\nEmail: " + email + "\nMessage: " + message;
+                    alert(formData);
+
+                    document.body.removeChild(popupContainer); // Remove the pop-up from the DOM
+                });
+
+                // Create a name input field
+                var nameLabel = document.createElement("label");
+                nameLabel.innerText = "PhoneNumber:";
+                var nameInput = document.createElement("input");
+                nameInput.type = "text";
+                nameInput.id = "Phone";
+                nameInput.value = phone
+                form.appendChild(nameLabel);
+                form.appendChild(nameInput);
+
+
+
+                // Create a message text area
+                var messageLabel = document.createElement("label");
+                messageLabel.innerText = "Status:";
+                var messageTextarea = document.createElement("textarea");
+                messageTextarea.id = "message";
+                form.appendChild(messageLabel);
+                form.appendChild(messageTextarea);
+
+                // Create a submit button
+                var submitButton = document.createElement("button");
+                submitButton.type = "submit";
+                submitButton.style.backgroundColor="red"
+                submitButton.innerText = "Submit";
+                submitButton.style.color="white";
+                form.appendChild(submitButton);
+                 submitButton.addEventListener("click", function () {
+                     document.body.removeChild(popupContainer);
+                });
+
+                popupContainer.appendChild(form);
+                document.body.appendChild(popupContainer); // Add the pop-up to the DOM
+            }
+
+            newRow.appendChild(serialCell);
+            newRow.appendChild(nameCell);
+            newRow.appendChild(companyCell);
+            newRow.appendChild(addressCell);
+            newRow.appendChild(phoneCell);
+            newRow.appendChild(statusCell);
+
+            document.getElementById("data-table-body").appendChild(newRow);
+
+            serialNumber++;
+        }
+       
+
+        addRow("Sonal", "NBIT", "Pune City", "01321120");
+        addRow("Daminee", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+        addRow("Yash", "NBIT", "Dubai", "13210");
+    </script>
+</body>
+
+</html>
